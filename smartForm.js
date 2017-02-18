@@ -20,7 +20,7 @@ var userData = {
 		});
 		function validateName(name)
 			{
-				var re = /^[A-z ]+$/;	// 15:04
+				var re = /^[A-z ]+$/;
 				return re.test(name);
 			}
 
@@ -52,16 +52,6 @@ var userData = {
 				return false;
 			}
 			else {
-	/*				$("#exampleInputEmail1").on("change keyup", function(){
-					console.log($(this).val());
-					$("#qNext").prop('disabled', $("#name").val() == '' || $("#exampleInputEmail1").val() == '');
-				});
-
-				$("#name").on("change", function(){
-					console.log($(this).val());
-					$("#qNext").prop('disabled', $("#name").val() == '' || $("#exampleInputEmail1").val() == '');
-				}); */
-
 					userData.name = $("#name").val();
 					userData.email = $("#exampleInputEmail1").val();
 					console.log(JSON.stringify(userData));
@@ -71,55 +61,118 @@ var userData = {
 				return true;
 			}
 		});
+	$("#exampleInputEmail1").on("change keyup", function(){
+	console.log($(this).val());
+	$("#qNext").prop('disabled', $("#name").val() == '' || $("#exampleInputEmail1").val() == '');
+});
+	$("#name").on("change", function(){
+		console.log($(this).val());
+		$("#qNext").prop('disabled', $("#name").val() == '' || $("#exampleInputEmail1").val() == '');
 	});
-var positionArray = [];
-//must use this kind of code to check if all buttons are enabled or not
-//$("#qNext").prop('disabled', $("#name").val() == '' || $("#exampleInputEmail1").val() == '');
 
-$("#exampleInputEmail1").on("change keyup", function(){
-	console.log($(this).val());
-	$("#qNext").prop('disabled', $("#name").val() == '' || $("#exampleInputEmail1").val() == '');
-});
-$("#name").on("change", function(){
-	console.log($(this).val());
-	$("#qNext").prop('disabled', $("#name").val() == '' || $("#exampleInputEmail1").val() == '');
-});
+	$("#html").click(function() {
+		$("#q2").hide();
+		$("#q2a").show();
+		/*if (userData.html != false) {	
+			$("#html").prop('disabled', true);
+		}*/
+	});
+	$("#css").click(function() {
+		$("#q2").hide();
+		$("#q2b").show();
+		/*if (userData.css != false) {	
+			$("#css").prop('disabled', true);
+		}*/
+	});
+	$("#js").click(function() {
+		$("#q2").hide();
+		$("#q2c").show();
+		/*if (userData.html != false) {	
+			$("#js").prop('disabled', true);
+		}*/
+	});
 
-
-
-$("#html").click(function() {
-	$("#q2").hide();
-	$("#q2a").show();
-});
-$("#css").click(function() {
-	$("#q2").hide();
-	$("#q2b").show();
-});
-$("#js").click(function() {
-	$("#q2").hide();
-	$("#q2c").show();
-});
-
-$("#q2a").click(function() {
-//	var htmlChecked = [];
-	$(':checkbox[name=likesHTML]').click(function() {
-				if (this.checked) {
-						userData.html.push(this.value);
-				//userData.html = push(htmlChecked);
+	$("#q2a").click(function() {
+	//	var htmlChecked = [];
+		$(':checkbox[name=likesHTML]').click(function() {
+			if (this.checked) {
+				userData.html.push(this.value);
 				console.log(JSON.stringify(userData));
 				localStorage.userData;
-				}
-    });
-		if (userData.html || userData.htmlSkill) {
+			}
+	    });
 			$("#htmlNext").click(function() {
+						
 				$("#q2a").hide();
 				$("#q2").show();
-				$("html").attr('disabled', 'block');
+				if ($("#html").prop('disabled') && $("#css").prop('disabled') && $("#js").prop('disabled')) {
+					$("#q2").hide();
+					$("#q3").show();
+				}
 			});
 			$("#htmlPrev").click(function() {
 				$("#q2a").hide();
 				$("#q2").show();
 			});
+		});
 
+	$("#q2b").click(function() {
+		$(':checkbox[name=likesCSS]').click(function() {
+			if (this.checked) {
+				userData.css.push(this.value);
+				console.log(JSON.stringify(userData));
+				localStorage.userData;
+			}
+	    });
+			$("#cssNext").click(function() {			
+				$("#q2b").hide();
+				$("#q2").show();
+				if ($("#html").prop('disabled') && $("#css").prop('disabled') && $("#js").prop('disabled')) {
+					$("#q2").hide();
+					$("#q3").show();
+				}
+			});
+			$("#cssPrev").click(function() {
+				$("#q2b").hide();
+				$("#q2").show();
+			});
+		});
+	$("#q2c").click(function() {
+		$(':checkbox[name=likesJS]').click(function() {
+			if (this.checked) {
+				userData.js.push(this.value);
+				console.log(JSON.stringify(userData));
+				localStorage.userData;
+			}
+	    });
+			$("#jsNext").click(function() {
+				$("#q2c").hide();
+				$("#q2").show();
+				if ($("#html").prop('disabled') && $("#css").prop('disabled') && $("#js").prop('disabled')) {
+					$("#q2").hide();
+					$("#q3").show();
+				}
+				
+			});
+			$("#jsPrev").click(function() {
+				$("#q2c").hide();
+				$("#q2").show();
+			});
+		});
+	$("#q2").ready(function(){
+		if (userData.html != false) {	
+			$("#html").prop('disabled', true);
 		}
+		if (userData.css != false) {	
+			$("#css").prop('disabled', true);
+		}
+		if (userData.html != false) {	
+			$("#js").prop('disabled', true);
+		}
+
+	});
 });
+var positionArray = [];
+//must use this kind of code to check if all buttons are enabled or not
+//$("#qNext").prop('disabled', $("#name").val() == '' || $("#exampleInputEmail1").val() == '');
+
