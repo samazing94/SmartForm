@@ -1,5 +1,3 @@
-// Your jQuery goes here
-
 var userData = {
 	name: '',
 	email: '',
@@ -11,6 +9,8 @@ var userData = {
 	jsSkill: null,
 	position: "welcome"
 };
+var position = 0;
+var positionArray = [false, false, false];
 //validations
 	$(document).ready(function() {
 		$("#start").click(function(event) {
@@ -73,106 +73,161 @@ var userData = {
 	$("#html").click(function() {
 		$("#q2").hide();
 		$("#q2a").show();
-		/*if (userData.html != false) {	
-			$("#html").prop('disabled', true);
-		}*/
 	});
 	$("#css").click(function() {
 		$("#q2").hide();
 		$("#q2b").show();
-		/*if (userData.css != false) {	
-			$("#css").prop('disabled', true);
-		}*/
+
 	});
 	$("#js").click(function() {
 		$("#q2").hide();
 		$("#q2c").show();
-		/*if (userData.html != false) {	
-			$("#js").prop('disabled', true);
-		}*/
+
 	});
 
+	//HTML checkbox
 	$("#q2a").click(function() {
-	//	var htmlChecked = [];
 		$(':checkbox[name=likesHTML]').click(function() {
 			if (this.checked) {
 				userData.html.push(this.value);
+				userData.position = " html";
 				console.log(JSON.stringify(userData));
-				localStorage.userData;
 			}
 	    });
-			$("#htmlNext").click(function() {
-						
+		$("#htmlNext").click(function() {			
+			$("#q2a").hide();
+			$("#q2").show();
+			position = 0;
+			positionArray[position] = true;
+			console.log(position);
+			if (positionArray[0] == true && positionArray[1] == true && positionArray[2] == true)
+			{
+				$("#q2").hide();
 				$("#q2a").hide();
-				$("#q2").show();
-				if ($("#html").prop('disabled') && $("#css").prop('disabled') && $("#js").prop('disabled')) {
-					$("#q2").hide();
-					$("#q3").show();
-				}
-			});
-			$("#htmlPrev").click(function() {
-				$("#q2a").hide();
-				$("#q2").show();
-			});
+				$("#q3").show();
+			}
+			$("#html").prop('disabled', true);
 		});
+		$("#htmlPrev").click(function() {
+			$("#q2a").hide();
+			$("#q2").show();
+		});
+	});
 
+	//CSS Checkbox
 	$("#q2b").click(function() {
 		$(':checkbox[name=likesCSS]').click(function() {
 			if (this.checked) {
 				userData.css.push(this.value);
+				userData.position = " css";
 				console.log(JSON.stringify(userData));
-				localStorage.userData;
 			}
 	    });
-			$("#cssNext").click(function() {			
+		$("#cssNext").click(function() {			
+			
+			$("#q2b").hide();
+			$("#q2").show();
+			position = 1;
+			positionArray[position] = true;
+			console.log(position);
+			if (positionArray[0] == true && positionArray[1] == true && positionArray[2] == true)
+			{
+				$("#q2").hide();
 				$("#q2b").hide();
-				$("#q2").show();
-				if ($("#html").prop('disabled') && $("#css").prop('disabled') && $("#js").prop('disabled')) {
-					$("#q2").hide();
-					$("#q3").show();
-				}
-			});
-			$("#cssPrev").click(function() {
-				$("#q2b").hide();
-				$("#q2").show();
-			});
+				$("#q3").show();
+			}
+			$("#css").prop('disabled', true);
 		});
+		$("#cssPrev").click(function() {
+			$("#q2b").hide();
+			$("#q2").show();
+		});
+	});
+	//JS Checkbox
 	$("#q2c").click(function() {
 		$(':checkbox[name=likesJS]').click(function() {
 			if (this.checked) {
 				userData.js.push(this.value);
-				console.log(JSON.stringify(userData));
-				localStorage.userData;
+				userData.position = " js";
+				console.log(JSON.stringify(userData));	
 			}
 	    });
-			$("#jsNext").click(function() {
+		$("#jsNext").click(function() {
+			$("#q2c").hide();
+			$("#q2").show();
+			position = 2;
+			positionArray[position] = true;
+			console.log(position);
+			if (positionArray[0] == true && positionArray[1] == true && positionArray[2] == true)
+			{
+				$("#q2").hide();
 				$("#q2c").hide();
-				$("#q2").show();
-				if ($("#html").prop('disabled') && $("#css").prop('disabled') && $("#js").prop('disabled')) {
-					$("#q2").hide();
-					$("#q3").show();
-				}
-				
-			});
-			$("#jsPrev").click(function() {
-				$("#q2c").hide();
-				$("#q2").show();
-			});
-		});
-	$("#q2").ready(function(){
-		if (userData.html != false) {	
-			$("#html").prop('disabled', true);
-		}
-		if (userData.css != false) {	
-			$("#css").prop('disabled', true);
-		}
-		if (userData.html != false) {	
+				$("#q3").show();
+			}
 			$("#js").prop('disabled', true);
+		});
+		$("#jsPrev").click(function() {
+			$("#q2c").hide();
+			$("#q2").show();
+		});
+	});
+	$("#q3").ready(function(){
+		//
+		var i = 0;
+		var str = [false , false, false];
+		$("#q3Next").prop('disabled', true);
+		userData.position = "strength";
+		$(':radio[name=htmlR]').click(function(){
+			userData.htmlSkill = this.value;
+			console.log(JSON.stringify(userData));
+			i = 0;
+			str[i] = true;
+			if (str[0] == true && str[1] == true && str[2] == true){
+				$("#q3Next").prop('disabled', false);
+			}
+		});
+		$(':radio[name=cssR]').click(function(){
+			userData.cssSkill = this.value;
+			console.log(JSON.stringify(userData));
+			i = 1;
+			str[i] = true;
+			if (str[0] == true && str[1] == true && str[2] == true){
+				$("#q3Next").prop('disabled', false);
+			}
+		});
+		$(':radio[name=jsR]').click(function(){
+			userData.jsSkill = this.value;
+			console.log(JSON.stringify(userData));
+			i = 2;
+			str[i] = true;
+			if (str[0] == true && str[1] == true && str[2] == true){
+				$("#q3Next").prop('disabled', false);
+			}
+		});
+		$("#q3Next").click(function(){
+			$("#q3").hide();
+			$("#thanks").show();
+		});
+		$("#q3Prev").click(function(){
+			$("#q3").hide();
+			$("#q2").show();
+		});
+	});
+	$("#thanks").ready(function(){
+		if (!localStorage.userData){
+			localStorage.userData = JSON.stringify([]);
 		}
+		var userD = JSON.parse(localStorage["userData"]);
+		userD.push(userData);
+		localStorage["userData"] = JSON.stringify(userData);
+		$("#ans").click(function(){
+			$("#show").show();
+			$("#show").html(JSON.stringify(userData, null, 2));
 
+		});
+		$("#delAns").click(function(){
+			localStorage.clear();
+			$("#show").hide();
+		});
 	});
 });
-var positionArray = [];
-//must use this kind of code to check if all buttons are enabled or not
-//$("#qNext").prop('disabled', $("#name").val() == '' || $("#exampleInputEmail1").val() == '');
-
