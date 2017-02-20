@@ -228,6 +228,8 @@ var positionArray = [false, false, false];
 		$("#delAns").click(function(){
 			localStorage.clear();
 			$("#show").hide();
+			$("#thanks").hide();
+			$("#welcome").show();
 		});
 	});
 });
